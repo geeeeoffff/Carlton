@@ -28,6 +28,14 @@ public class Commander {
         textIntent.setData(Uri.parse(Commander.SmsPrefix + Commander.GeoffsPhoneNumber));
         activity.startActivity(textIntent);
     }
+
+    /*
+        Launch my weather activity
+    * */
+    public static void launchWeatherActivity(Activity activity){
+        Intent weatherIntent = new Intent(activity, WeatherActivity.class);
+        activity.startActivity(weatherIntent);
+    }
     final private static String GeoffsPhoneNumber = "2067887398";
     final private static String SmsPrefix = "sms:";
     final private static String TelPrefix = "tel:";

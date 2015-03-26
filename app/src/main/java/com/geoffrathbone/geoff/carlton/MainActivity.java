@@ -29,13 +29,11 @@ import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
-    private Commander commander= null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        commander = new Commander();
         this.setupLongClick();
     }
 
@@ -75,8 +73,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onWeatherButtonPress(View view){
-
-
+        Commander.launchWeatherActivity(this);
     }
 
     // a small easter egg
