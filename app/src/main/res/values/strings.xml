@@ -8,4 +8,8 @@
     <string name="button_text_enabled">push me!</string>
     <string name="button_text_disabled">listening...</string>
     <string name="carlton_name">CARLTON BANKS</string>
+    <string name="call_command_name">Call</string>
+    <string name="text_command_name">Text</string>
+    <string name="weather_command_name">Weather</string>
+    <string name="carlton_secret_message">Hello! I\'m Carlton Banks.  I\'m known for my dancing abilities.  As seen in the 90\'s tv show The Fresh Prince of Bel-Air</string>
 </resources>

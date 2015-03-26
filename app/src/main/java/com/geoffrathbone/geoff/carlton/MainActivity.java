@@ -18,20 +18,26 @@ Instructions:
 
 package com.geoffrathbone.geoff.carlton;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
+    private Commander commander= null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        commander = new Commander();
+        this.setupLongClick();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,4 +60,35 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-}
+
+    /*
+        Setting up the buttons.  I'll leave this test code in so you can have a feel for my
+        process.  I created these buttons to test functionality before getting to the voice
+        recognition portion of the program
+        * */
+    public void onCallButtonPress(View view){
+        Commander.launchDialer(this);
+    }
+
+    public void onTextButtonPress(View view){
+        Commander.launchSMS(this);
+    }
+
+    public void onWeatherButtonPress(View view){
+
+
+    }
+
+    // a small easter egg
+    private void setupLongClick(){
+        ImageView carlton = (ImageView) findViewById(R.id.carltonView);
+        carlton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getApplicationContext(),R.string.carlton_secret_message,Toast.LENGTH_LONG).show();
+                return false;
+            }
+        });
+    }
+
+ }
