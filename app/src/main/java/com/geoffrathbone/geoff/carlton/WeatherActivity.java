@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-
 public class WeatherActivity extends ActionBarActivity {
 
     @Override
@@ -44,7 +43,11 @@ public class WeatherActivity extends ActionBarActivity {
     * */
     public void updateWeatherData(final YahooWeatherData weatherData)
     {
-        TextView weatherTitle = (TextView)findViewById(R.id.weatherTitleTextView);
-        weatherTitle.setText( weatherData.test);
+        TextView weatherTitle = (TextView)findViewById(R.id.weatherActivityTitleTextView);
+        weatherTitle.setText(weatherData.getTitle());
+        TextView degrees = (TextView)findViewById(R.id.weatherActivitydegreesView);
+        degrees.setText(weatherData.getTemp());
+        TextView condition = (TextView)findViewById(R.id.weatherActivityconditionView);
+        condition.setText(weatherData.getCond());
     }
 }

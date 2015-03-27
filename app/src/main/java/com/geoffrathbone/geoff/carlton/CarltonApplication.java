@@ -11,9 +11,6 @@ public class CarltonApplication extends Application {
     public void onCreate()
     {
         super.onCreate();
-
-        // creating this here, I don't feel that it belongs in an activity class
-
     }
 
     /*
@@ -28,6 +25,7 @@ public class CarltonApplication extends Application {
         threadHandle.start();
     }
 
+
+    // creating this here, I'm not sure that it belongs in an activity class
     private Thread threadHandle = null;
-    private Commander commander = null;
 }

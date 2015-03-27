@@ -3,7 +3,6 @@ package com.geoffrathbone.geoff.carlton;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.internal.widget.ActivityChooserModel;
 
 /**
  * Created by Geoff on 3/26/2015.

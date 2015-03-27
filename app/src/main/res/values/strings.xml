@@ -13,4 +13,7 @@
     <string name="weather_command_name">Weather</string>
     <string name="carlton_secret_message">Hello! I\'m Carlton Banks.  I\'m known for my dancing abilities.  As seen in the 90\'s tv show The Fresh Prince of Bel-Air</string>
     <string name="title_activity_weather">WeatherActivity</string>
+    <string name="weather_activity_temp_label">Temperature in Fahrenheit:</string>
+    <string name="weather_activity_cond_label">Condition:</string>
+    <string name="weather_activity_default_value">...</string>
 </resources>

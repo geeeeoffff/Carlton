@@ -14,19 +14,64 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Wait for it..."
-            android:id="@+id/weatherTitleTextView"
-            android:layout_gravity="center_horizontal" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/weatherCarltonImageView"
             android:src="@drawable/carlton2"
             android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Wait for it..."
+            android:id="@+id/weatherActivityTitleTextView"
+            android:layout_gravity="center_horizontal" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/weather_activity_temp_label"
+                android:id="@+id/weatherActivitytempLabelView"
+                android:layout_gravity="center_horizontal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/weather_activity_default_value"
+                android:id="@+id/weatherActivitydegreesView"
+                android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/weather_activity_cond_label"
+                android:id="@+id/weatherActivityconditionLabelView"
+                android:layout_gravity="center_horizontal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/weather_activity_default_value"
+                android:id="@+id/weatherActivityconditionView"
+                android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+
+
 
 
     </LinearLayout>
