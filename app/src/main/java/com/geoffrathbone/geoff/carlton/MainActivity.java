@@ -61,9 +61,15 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void notifyListenerSetupResult(ListenerStatusEnum updatedStatus){
+    @Override
+    public void onDestroy() {
+        this.mListener.stopListening();
+        this.mListener = null;
+    }
+
+    public void notifyListenerSetupResult(ListenerStatusEnum updatedStatus) {
         Button listenButton = ((Button) findViewById(R.id.listenButton));
-        switch (updatedStatus){
+        switch (updatedStatus) {
             case NOT_LOADED:
                 listenButton.setText(getResources().getText(R.string.listen_button_initializing_text));
                 listenButton.setEnabled(false);
@@ -90,48 +96,30 @@ public class MainActivity extends ActionBarActivity {
         this.mListenerStatus = updatedStatus;
     }
 
-    /*
-        Setting up the buttons.  I'll leave this test code in so you can have a feel for my
-        process.  I created these buttons to test functionality before getting to the voice
-        recognition portion of the program
-        * */
-    public void onCallButtonPress(View view){
-        Commander.launchDialer(this);
-    }
-
-    public void onTextButtonPress(View view){
-        Commander.launchSMS(this);
-    }
-
-    public void onWeatherButtonPress(View view){
-        Commander.launchWeatherActivity(this);
-    }
-
-    public void onListenButtonPress(View view){
-        if (this.mListenerStatus == ListenerStatusEnum.LOADED){
+    public void onListenButtonPress(View view) {
+        if (this.mListenerStatus == ListenerStatusEnum.LOADED) {
             mListener.listen();
-        }else if (this.mListenerStatus == ListenerStatusEnum.LISTENING)
-        {
+        } else if (this.mListenerStatus == ListenerStatusEnum.LISTENING) {
             mListener.stopListening();
         }
-    }
-
-    // a small easter egg
-    private void setupLongClick(){
-        ImageView carlton = (ImageView) findViewById(R.id.carltonView);
-        carlton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Toast.makeText(getApplicationContext(),R.string.carlton_secret_message,Toast.LENGTH_LONG).show();
-                return false;
-            }
-        });
     }
 
     public enum ListenerStatusEnum {
         NOT_LOADED, LOADING, LOADED, FAILED, LISTENING
     }
 
+    // a small easter egg
+    private void setupLongClick() {
+        ImageView carlton = (ImageView) findViewById(R.id.carltonView);
+        carlton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getApplicationContext(), R.string.carlton_secret_message, Toast.LENGTH_LONG).show();
+                return false;
+            }
+        });
+    }
+
     private ListenerStatusEnum mListenerStatus = null;
-    private BasicListener mListener = null;
- }
+    private BasicListener mListener ;
+}

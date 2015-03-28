@@ -1,5 +1,6 @@
 package com.geoffrathbone.geoff.carlton;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -12,9 +13,14 @@ public class WeatherActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
-        ((CarltonApplication)this.getApplicationContext()).loadWeatherData(this);
+        beginLoadWeatherData();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        this.weatherLoadTask.cancel(true);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -41,13 +47,30 @@ public class WeatherActivity extends ActionBarActivity {
     /*
         Callback for updating the UI once the weather data is received from the Yahoo Backend
     * */
-    public void updateWeatherData(final YahooWeatherData weatherData)
-    {
-        TextView weatherTitle = (TextView)findViewById(R.id.weatherActivityTitleTextView);
+    public void updateWeatherData(final YahooWeatherData weatherData) {
+        TextView weatherTitle = (TextView) findViewById(R.id.weatherActivityTitleTextView);
         weatherTitle.setText(weatherData.getTitle());
-        TextView degrees = (TextView)findViewById(R.id.weatherActivitydegreesView);
+        TextView degrees = (TextView) findViewById(R.id.weatherActivitydegreesView);
         degrees.setText(weatherData.getTemp());
-        TextView condition = (TextView)findViewById(R.id.weatherActivityconditionView);
+        TextView condition = (TextView) findViewById(R.id.weatherActivityconditionView);
         condition.setText(weatherData.getCond());
     }
+
+    private void beginLoadWeatherData() {
+        weatherLoadTask = new AsyncTask<Void, Void, YahooWeatherData>() {
+            @Override
+            protected YahooWeatherData doInBackground(Void... params) {
+                YahooWeatherSource source = new YahooWeatherSource();
+                YahooWeatherData data = source.getWeatherData();
+                return data;
+            }
+
+            @Override
+            protected void onPostExecute(YahooWeatherData weatherData) {
+                updateWeatherData(weatherData);
+            }
+        }.execute();
+    }
+
+    private AsyncTask<Void, Void, YahooWeatherData> weatherLoadTask = null;
 }

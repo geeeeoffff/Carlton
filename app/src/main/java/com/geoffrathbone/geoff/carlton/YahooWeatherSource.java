@@ -20,15 +20,14 @@ import java.io.InputStreamReader;
 public class YahooWeatherSource {
     // Since the request is already happening in a background thread, I'm doing this synchronously
     // For the purposes of this app, Location is hard coded
-    public YahooWeatherData getWeatherData()
-    {
+    public YahooWeatherData getWeatherData() {
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
             HttpResponse response = httpClient.execute(new HttpGet(this.requestUrl));
             StatusLine statusLine = response.getStatusLine();
             int statusCode = statusLine.getStatusCode();
-            if (statusCode != 200){
+            if (statusCode != 200) {
                 // return error data
                 return YahooWeatherData.GenerateErrorData();
             }
@@ -46,8 +45,7 @@ public class YahooWeatherSource {
 
             String resultString = builder.toString();
             return this.deserialize(resultString);
-        }catch(Exception ex)
-        {
+        } catch (Exception ex) {
             // Swallowing this exception.  If this were to be published, I might add some
             // retry logic.  You can retry by backing out and re-opening the page
             // for now, just pass back an error message in the weather object
@@ -55,11 +53,11 @@ public class YahooWeatherSource {
         }
     }
 
-    private YahooWeatherData deserialize(String jsonString){
+    private YahooWeatherData deserialize(String jsonString) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(YahooWeatherData.class, new YahooWeatherDataDeserializer());
         Gson gson = gsonBuilder.create();
-        YahooWeatherData result = gson.fromJson(jsonString,YahooWeatherData.class);
+        YahooWeatherData result = gson.fromJson(jsonString, YahooWeatherData.class);
         return result;
     }
 

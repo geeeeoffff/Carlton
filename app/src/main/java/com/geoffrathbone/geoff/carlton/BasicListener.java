@@ -13,25 +13,24 @@ import edu.cmu.pocketsphinx.SpeechRecognizer;
 import static edu.cmu.pocketsphinx.SpeechRecognizerSetup.defaultSetup;
 
 /**
+ * Class that listens for the keywords
  * Created by Geoff on 3/27/2015.
  */
 public class BasicListener implements RecognitionListener {
 
-    private MainActivity mainActivity = null;
-
-    public BasicListener(MainActivity activity){
+    public BasicListener(MainActivity activity) {
         this.mainActivity = activity;
         this.kickoff();
         this.mainActivity.notifyListenerSetupResult(MainActivity.ListenerStatusEnum.LOADING);
     }
 
-    public void listen(){
+    public void listen() {
         recognizer.startListening(optionsSearch);
         this.mainActivity.notifyListenerSetupResult(MainActivity.ListenerStatusEnum.LISTENING);
     }
 
     @Override
-    public void onPartialResult(Hypothesis hypothesis){
+    public void onPartialResult(Hypothesis hypothesis) {
         if (hypothesis == null)
             return;
 
@@ -52,20 +51,18 @@ public class BasicListener implements RecognitionListener {
             default:
                 break;
         }
-
     }
 
     @Override
-    public void onError(Exception ex){
+    public void onError(Exception ex) {
     }
 
     @Override
-    public void onResult(Hypothesis hypothesis){
+    public void onResult(Hypothesis hypothesis) {
     }
 
     @Override
-    public void onTimeout(){
-
+    public void onTimeout() {
     }
 
     @Override
@@ -73,11 +70,15 @@ public class BasicListener implements RecognitionListener {
     }
 
     @Override
-    public void onEndOfSpeech(){
-
+    public void onEndOfSpeech() {
     }
 
-    public void kickoff(){
+    public void stopListening() {
+        recognizer.cancel();
+        this.mainActivity.notifyListenerSetupResult(MainActivity.ListenerStatusEnum.LOADED);
+    }
+
+    private void kickoff() {
         // code borrowed from pocketsphinx example project.
         new AsyncTask<Void, Void, Exception>() {
             @Override
@@ -104,12 +105,6 @@ public class BasicListener implements RecognitionListener {
         }.execute();
     }
 
-    public void stopListening()
-    {
-        recognizer.cancel();
-        this.mainActivity.notifyListenerSetupResult(MainActivity.ListenerStatusEnum.LOADED);
-    }
-
     // borrowed and modified from example project
     private void setupRecognizer(File assetsDir) throws IOException {
         // The recognizer can be configured to perform multiple searches
@@ -132,7 +127,7 @@ public class BasicListener implements RecognitionListener {
         recognizer.addListener(this);
 
         // create keyword-activation searches
-        File carltonGrammar = new File(assetsDir,"options.gram");
+        File carltonGrammar = new File(assetsDir, "options.gram");
         recognizer.addGrammarSearch(optionsSearch, carltonGrammar);
     }
 
@@ -140,5 +135,6 @@ public class BasicListener implements RecognitionListener {
     final private String callKeyword = "call";
     final private String weatherKeyword = "weather";
     final private String optionsSearch = "options";
-    private SpeechRecognizer recognizer= null;
+    final private MainActivity mainActivity ;
+    private SpeechRecognizer recognizer ;
 }
