@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.geoffrathbone.geoff.carlton" >
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -22,7 +23,7 @@
         </activity>
         <activity
             android:name=".WeatherActivity"
-            android:label="@string/title_activity_weather"
+            android:label="@string/weather_top_label"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|orientation">

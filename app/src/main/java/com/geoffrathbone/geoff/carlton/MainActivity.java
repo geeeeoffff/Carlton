@@ -17,11 +17,13 @@ Instructions:
 * */
 
 package com.geoffrathbone.geoff.carlton;
-import android.support.v7.app.ActionBarActivity;
+
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -33,6 +35,8 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.setupLongClick();
+        this.mListenerStatus = ListenerStatusEnum.NOT_LOADED;
+        this.mListener = new BasicListener(this);
     }
 
     @Override
@@ -57,6 +61,35 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void notifyListenerSetupResult(ListenerStatusEnum updatedStatus){
+        Button listenButton = ((Button) findViewById(R.id.listenButton));
+        switch (updatedStatus){
+            case NOT_LOADED:
+                listenButton.setText(getResources().getText(R.string.listen_button_initializing_text));
+                listenButton.setEnabled(false);
+                break;
+            case LOADING:
+                listenButton.setText(getResources().getText(R.string.listen_button_initializing_text));
+                listenButton.setEnabled(false);
+                break;
+            case LOADED:
+                listenButton.setText(getResources().getText(R.string.listen_button_inactive_text));
+                listenButton.setEnabled(true);
+                break;
+            case LISTENING:
+                listenButton.setText(getResources().getText(R.string.listen_button_active_text));
+                listenButton.setEnabled(true);
+                break;
+            case FAILED:
+            default:
+                listenButton.setText(getResources().getText(R.string.listen_button_setup_failed));
+                listenButton.setEnabled(false);
+        }
+
+        // extra set activated above statements are probably not necessary...
+        this.mListenerStatus = updatedStatus;
+    }
+
     /*
         Setting up the buttons.  I'll leave this test code in so you can have a feel for my
         process.  I created these buttons to test functionality before getting to the voice
@@ -71,10 +104,16 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onWeatherButtonPress(View view){
-        //Gson gson = new Gson();
         Commander.launchWeatherActivity(this);
+    }
 
-
+    public void onListenButtonPress(View view){
+        if (this.mListenerStatus == ListenerStatusEnum.LOADED){
+            mListener.listen();
+        }else if (this.mListenerStatus == ListenerStatusEnum.LISTENING)
+        {
+            mListener.stopListening();
+        }
     }
 
     // a small easter egg
@@ -89,4 +128,10 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
+    public enum ListenerStatusEnum {
+        NOT_LOADED, LOADING, LOADED, FAILED, LISTENING
+    }
+
+    private ListenerStatusEnum mListenerStatus = null;
+    private BasicListener mListener = null;
  }

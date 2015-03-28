@@ -21,11 +21,11 @@ public class CarltonApplication extends Application {
         WeatherFetchRunnable weatherCallable = new WeatherFetchRunnable(weatherActivity);
         // It should be okay to destroy any existing thread.  The page was re-opened and we'll refresh the data
         // IN a published app it would be better to cache some of this data.
+        //TODO make this happen with an Async task instead.
         this.threadHandle = new Thread(weatherCallable);
         threadHandle.start();
     }
 
-
-    // creating this here, I'm not sure that it belongs in an activity class
+    // we can't guarantee that the MainActivity won't be destroyed when opening the WeatherActivity
     private Thread threadHandle = null;
 }

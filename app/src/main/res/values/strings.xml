@@ -16,4 +16,9 @@
     <string name="weather_activity_temp_label">Temperature in Fahrenheit:</string>
     <string name="weather_activity_cond_label">Condition:</string>
     <string name="weather_activity_default_value">...</string>
+    <string name="listen_button_inactive_text">Push to say command</string>
+    <string name="listen_button_active_text">listening...</string>
+    <string name="listen_button_initializing_text">Please wait...</string>
+    <string name="listen_button_setup_failed">setup failed</string>
+    <string name="weather_top_label">Weather Report</string>
 </resources>
